@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-master
+  template:
+    metadata:
+      labels:
+        app: redis-master
+        tier: backend
+    spec:
+      containers:
+        - name: redis-master
+          image: k8s.gcr.io/redis:e2e
+          ports:
+            - containerPort: 6379
