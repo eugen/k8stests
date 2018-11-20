@@ -2,19 +2,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis-slave
+  labels:
+    tier: backend
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: redis-master
+      app: redis-slave
   template:
     metadata:
       labels:
-        app: redis-master
+        app: redis-slave
         tier: backend
     spec:
       containers:
-        - name: redis-master
+        - name: redis-slave
           image: gcr.io/google_samples/gb-redisslave:v1
           ports:
             - containerPort: 6379
